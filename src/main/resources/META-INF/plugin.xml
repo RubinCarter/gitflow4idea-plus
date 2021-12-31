@@ -5,13 +5,14 @@
     <description>SET_BY_GRADLE</description>
     <version>SET_BY_GRADLE</version>
     <category>VCS Integration</category>
-    <vendor url="http://www.opherv.com">Opher Vishnia</vendor>
+    <vendor url="https://plugins.jetbrains.com/author/d406af22-5657-47d5-9141-03d605844cc4">Rubin Carter</vendor>
 
     <depends>com.intellij.modules.vcs</depends>
     <depends>com.intellij.tasks</depends>
     <depends>Git4Idea</depends>
 
-    <idea-version since-build="SET_BY_GRADLE" until-build="SET_BY_GRADLE"/>
+<!--    <idea-version since-build="SET_BY_GRADLE" until-build="SET_BY_GRADLE"/>-->
+    <idea-version since-build="SET_BY_GRADLE"/>
 
     <actions>
         <action id="Gitflow.OpenGitflowPopup" class="gitflow.actions.OpenGitflowPopup"

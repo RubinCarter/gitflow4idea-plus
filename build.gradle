@@ -7,7 +7,7 @@ compileJava {
     options.compilerArgs += ["-Xlint"]
 }
 
-group 'gitflow4idea'
+group 'gitflow4idea-fix'
 version '0.7.7'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -22,16 +22,16 @@ dependencies {
 }
 
 intellij {
-    version '2021.2'
+    version '2021.3'
     plugins 'git4idea', 'tasks'
 }
 
 patchPluginXml {
-    pluginId "Gitflow"
-    pluginDescription 'Git Flow Integration'
+    pluginId "Gitflow-Fix"
+    pluginDescription 'Git Flow Integration Fix'
     version '0.7.7'
     sinceBuild '212.0'
-    untilBuild '212.*'
+    untilBuild '*.*'
     changeNotes """
 
       <H2>Changelog for 0.7.7</H2>

@@ -5,7 +5,7 @@
     <description>SET_BY_GRADLE</description>
     <version>SET_BY_GRADLE</version>
     <category>VCS Integration</category>
-    <vendor url="https://plugins.jetbrains.com/author/d406af22-5657-47d5-9141-03d605844cc4">Rubin Carter</vendor>
+    <vendor url="https://github.com/RubinCarter">Rubin Carter</vendor>
 
     <depends>com.intellij.modules.vcs</depends>
     <depends>com.intellij.tasks</depends>

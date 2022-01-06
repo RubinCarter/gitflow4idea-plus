@@ -36,7 +36,7 @@ public class PublishHotfixAction extends AbstractPublishAction {
                     String publishedHotfixMessage = String.format("A new remote branch '%s%s' was created", branchUtil.getPrefixHotfix(), hotfixName);
                     NotifyUtil.notifySuccess(myProject, hotfixName, publishedHotfixMessage);
                 } else {
-                    NotifyUtil.notifyError(myProject, "Error", "Please have a look at the Version Control console for more details");
+                    NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
                 }
 
                 myRepo.update();

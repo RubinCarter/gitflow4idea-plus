@@ -59,7 +59,7 @@ public class TrackBugfixAction extends AbstractTrackAction {
                             String trackedBugfixMessage = String.format("A new branch '%s%s' was created", branchUtil.getPrefixBugfix(), bugfixName);
                             NotifyUtil.notifySuccess(myProject, bugfixName, trackedBugfixMessage);
                         } else {
-                            NotifyUtil.notifyError(myProject, "Error", "Please have a look at the Version Control console for more details");
+                            NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
                         }
                         myRepo.update();
                     }

@@ -8,6 +8,7 @@ import git4idea.commands.GitCommandResult;
 import git4idea.repo.GitRepository;
 import git4idea.validators.GitNewBranchNameValidator;
 import gitflow.ui.NotifyUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class StartReleaseAction extends AbstractStartAction {
@@ -45,7 +46,7 @@ public class StartReleaseAction extends AbstractStartAction {
                         NotifyUtil.notifySuccess(myProject, releaseName, startedReleaseMessage);
                     }
                     else {
-                        NotifyUtil.notifyError(myProject, "Error", "Please have a look at the Version Control console for more details");
+                        NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
                     }
 
                     myRepo.update();

@@ -102,9 +102,12 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceInterface="gitflow.Gitflow" serviceImplementation="gitflow.GitflowImpl"/>
-        <applicationService serviceInterface="gitflow.GitflowState" serviceImplementation="gitflow.GitflowState"></applicationService>
+        <applicationService serviceInterface="gitflow.GitflowState" serviceImplementation="gitflow.GitflowState"/>
         <projectConfigurable instance="gitflow.GitflowConfigurable"/>
         <tasks.dialogPanelProvider implementation="gitflow.ui.GitflowTaskDialogPanelProvider"/>
         <statusBarWidgetFactory id="gitflowWidget" implementation="gitflow.ui.GitflowStatusBarWidgetFactory" order="after inspectionProfileWidget"/>
+        <notificationGroup  id="Gitflow Errors WINDOW" displayType="TOOL_WINDOW" toolWindowId="Version Control" isLogByDefault="true"/>
+        <notificationGroup  id="Gitflow Errors STICKY" displayType="STICKY_BALLOON" isLogByDefault="true"/>
+        <notificationGroup id="Gitflow Notifications" displayType="BALLOON" isLogByDefault="true"/>
     </extensions>
 </idea-plugin>

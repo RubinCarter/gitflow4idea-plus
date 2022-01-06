@@ -3,6 +3,8 @@ package gitflow;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.OSProcessHandler;
+import com.intellij.execution.process.ProcessAdapter;
+import com.intellij.execution.process.ProcessEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.registry.Registry;
@@ -35,22 +37,18 @@ public class GitInitLineHandler extends GitLineHandler {
 
     @Override
     protected OSProcessHandler createProcess(@NotNull GeneralCommandLine commandLine) throws ExecutionException {
-        return new MyOSProcessHandler(commandLine,
-                this.myWithMediator && Registry
-                        .is("git.execute.with.mediator"));
+        MyOSProcessHandler process = new MyOSProcessHandler(commandLine, this.myWithMediator && Registry.is("git.execute.with.mediator"));
+        process.addProcessListener(new ProcessAdapter() {
+            @Override
+            public void onTextAvailable(@NotNull ProcessEvent event, @NotNull Key outputType) {
+                String s = event.getText();
+                GitInitLineHandler.this.onTextAvailable(s);
+            }
+        });
+        return process;
     }
 
-    @Nullable
-    @Override
-    protected Process startProcess() throws ExecutionException {
-        Process p = super.startProcess();
-        writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
-        return p;
-    }
-
-    @Override
-    protected void onTextAvailable(String s, Key key) {
-        super.onTextAvailable(s, key);
+    public void onTextAvailable(String s) {
         try {
             if (s.contains("name for production releases")) {
                 consoleWriter.showCommandLine(_initOptions.getProductionBranch());
@@ -119,6 +117,19 @@ public class GitInitLineHandler extends GitLineHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Nullable
+    @Override
+    protected Process startProcess() throws ExecutionException {
+        Process p = super.startProcess();
+        writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+        return p;
+    }
+
+    @Override
+    protected void processTerminated(int exitCode) {
+        super.processTerminated(exitCode);
     }
 
     class MyOSProcessHandler extends GitTextHandler.MyOSProcessHandler {

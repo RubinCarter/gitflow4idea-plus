@@ -132,7 +132,7 @@ public class GitInitLineHandler extends GitLineHandler {
         super.processTerminated(exitCode);
     }
 
-    class MyOSProcessHandler extends GitTextHandler.MyOSProcessHandler {
+    static class MyOSProcessHandler extends GitTextHandler.MyOSProcessHandler {
         MyOSProcessHandler(@NotNull GeneralCommandLine commandLine,
                 boolean withMediator) throws ExecutionException {
             super(commandLine, withMediator);

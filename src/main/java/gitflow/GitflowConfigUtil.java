@@ -76,23 +76,21 @@ public class GitflowConfigUtil {
         VirtualFile root = repo.getRoot();
 
         try{
-            Future<Void> f = (Future<Void>) ApplicationManager.getApplication().executeOnPooledThread(new Runnable() {
-                @Override
-                public void run() {
-                    try{
-                        masterBranch = GitConfigUtil.getValue(project, root, BRANCH_MASTER);
-                        developBranch = GitConfigUtil.getValue(project, root, BRANCH_DEVELOP);
-                        featurePrefix = GitConfigUtil.getValue(project,root,PREFIX_FEATURE);
-                        releasePrefix = GitConfigUtil.getValue(project,root,PREFIX_RELEASE);
-                        hotfixPrefix = GitConfigUtil.getValue(project,root,PREFIX_HOTFIX);
-                        bugfixPrefix = GitConfigUtil.getValue(project,root,PREFIX_BUGFIX);
-                        supportPrefix = GitConfigUtil.getValue(project,root,PREFIX_SUPPORT);
-                        versiontagPrefix = GitConfigUtil.getValue(project,root,PREFIX_VERSIONTAG);
-                    } catch (VcsException e) {
-                        NotifyUtil.notifyError(project, "Config error", e);
-                    }
-                }});
-                f.get();
+            Future<?> f = ApplicationManager.getApplication().executeOnPooledThread(() -> {
+                try {
+                    masterBranch = GitConfigUtil.getValue(project, root, BRANCH_MASTER);
+                    developBranch = GitConfigUtil.getValue(project, root, BRANCH_DEVELOP);
+                    featurePrefix = GitConfigUtil.getValue(project, root, PREFIX_FEATURE);
+                    releasePrefix = GitConfigUtil.getValue(project, root, PREFIX_RELEASE);
+                    hotfixPrefix = GitConfigUtil.getValue(project, root, PREFIX_HOTFIX);
+                    bugfixPrefix = GitConfigUtil.getValue(project, root, PREFIX_BUGFIX);
+                    supportPrefix = GitConfigUtil.getValue(project, root, PREFIX_SUPPORT);
+                    versiontagPrefix = GitConfigUtil.getValue(project, root, PREFIX_VERSIONTAG);
+                } catch (VcsException e) {
+                    NotifyUtil.notifyError(project, "Config error", e);
+                }
+            });
+            f.get();
 
         }  catch (InterruptedException e) {
             e.printStackTrace();

@@ -21,7 +21,7 @@ public abstract class AbstractBranchStartDialog extends DialogWrapper {
 
     private JPanel contentPane;
     private JTextField branchNameTextField;
-    private JComboBox branchFromCombo;
+    private JComboBox<GitflowBranchUtil.ComboEntry> branchFromCombo;
     private JLabel branchNameLabel;
     private JLabel spacesLabel;
     private JLabel branchFromTitle;

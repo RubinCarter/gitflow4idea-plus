@@ -1,6 +1,7 @@
 package gitflow.actions;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
@@ -24,7 +25,7 @@ public abstract class GitflowAction extends DumbAwareAction {
     private static final long VFM_REFRESH_DELAY = 750L;
 
     Project myProject;
-    Gitflow myGitflow = ServiceManager.getService(Gitflow.class);
+    Gitflow myGitflow = ApplicationManager.getApplication().getService(Gitflow.class);
     ArrayList<GitRepository> repos = new ArrayList<GitRepository>();
     GitRepository myRepo;
     GitflowBranchUtil branchUtil;

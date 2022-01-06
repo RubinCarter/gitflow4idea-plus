@@ -79,9 +79,7 @@ class RepoActions extends BranchActionGroup implements PopupElementWithAdditiona
     public DefaultActionGroup getRepoActionGroup(boolean includeAdvanced){
         DefaultActionGroup actionGroup = new DefaultActionGroup();
 
-        Iterator actionsIterator = this.getRepoActions(includeAdvanced).iterator();
-        while(actionsIterator.hasNext()){
-            AnAction action = (AnAction) actionsIterator.next();
+        for (AnAction action : this.getRepoActions(includeAdvanced)) {
             actionGroup.add(action);
         }
 

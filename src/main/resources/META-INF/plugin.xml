@@ -1,17 +1,18 @@
 <idea-plugin>
     <!-- Values with SET_BY_GRADLE are defined in patchPluginXml task in build.gradle. -->
-    <name>Git Flow Integration</name>
+    <name>Git Flow Integration Fix</name>
     <id>SET_BY_GRADLE</id>
     <description>SET_BY_GRADLE</description>
     <version>SET_BY_GRADLE</version>
     <category>VCS Integration</category>
-    <vendor url="http://www.opherv.com">Opher Vishnia</vendor>
+    <vendor url="https://github.com/RubinCarter">Rubin Carter</vendor>
 
     <depends>com.intellij.modules.vcs</depends>
     <depends>com.intellij.tasks</depends>
     <depends>Git4Idea</depends>
 
-    <idea-version since-build="SET_BY_GRADLE" until-build="SET_BY_GRADLE"/>
+<!--    <idea-version since-build="SET_BY_GRADLE" until-build="SET_BY_GRADLE"/>-->
+    <idea-version since-build="SET_BY_GRADLE"/>
 
     <actions>
         <action id="Gitflow.OpenGitflowPopup" class="gitflow.actions.OpenGitflowPopup"
@@ -23,7 +24,7 @@
         />
 
         <action id="Gitflow.ReInitRepo" class="gitflow.actions.ReInitRepoAction"
-                text="Re-initialize Gitflow Repository..." />
+                text="Re-Initialize Gitflow Repository..." />
 
         <action id="Gitflow.StartFeature" class="gitflow.actions.StartFeatureAction"
                 text="Start Feature..."
@@ -101,9 +102,12 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceInterface="gitflow.Gitflow" serviceImplementation="gitflow.GitflowImpl"/>
-        <applicationService serviceInterface="gitflow.GitflowState" serviceImplementation="gitflow.GitflowState"></applicationService>
+        <applicationService serviceImplementation="gitflow.GitflowState"/>
         <projectConfigurable instance="gitflow.GitflowConfigurable"/>
         <tasks.dialogPanelProvider implementation="gitflow.ui.GitflowTaskDialogPanelProvider"/>
         <statusBarWidgetFactory id="gitflowWidget" implementation="gitflow.ui.GitflowStatusBarWidgetFactory" order="after inspectionProfileWidget"/>
+        <notificationGroup  id="Gitflow Errors WINDOW" displayType="TOOL_WINDOW" toolWindowId="Version Control" isLogByDefault="true"/>
+        <notificationGroup  id="Gitflow Errors STICKY" displayType="STICKY_BALLOON" isLogByDefault="true"/>
+        <notificationGroup id="Gitflow Notifications" displayType="BALLOON" isLogByDefault="true"/>
     </extensions>
 </idea-plugin>

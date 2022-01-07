@@ -67,7 +67,7 @@ public class InitRepoAction extends GitflowAction {
                         String successMessage = getSuccessMessage();
                         NotifyUtil.notifySuccess(myProject, "", successMessage);
                     } else {
-                        NotifyUtil.notifyError(myProject, "Error", "Please have a look at the Version Control console for more details");
+                        NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
                     }
 
                     //update the widget

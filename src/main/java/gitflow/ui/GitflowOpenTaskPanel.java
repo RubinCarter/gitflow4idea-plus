@@ -1,5 +1,6 @@
 package gitflow.ui;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.VcsTaskHandler;
@@ -32,13 +33,13 @@ public class GitflowOpenTaskPanel extends TaskDialogPanel implements ItemListene
     private JRadioButton startFeatureRadioButton;
     private JRadioButton startHotfixRadioButton;
     private JTextField featureName;
-    private JComboBox featureBaseBranch;
+    private JComboBox<GitflowBranchUtil.ComboEntry> featureBaseBranch;
     private JTextField hotfixName;
     private JPanel myPanel;
-    private JComboBox hotfixBaseBranch;
+    private JComboBox<GitflowBranchUtil.ComboEntry> hotfixBaseBranch;
     private JRadioButton startBugfixRadioButton;
     private JTextField bugfixName;
-    private JComboBox bugfixBaseBranch;
+    private JComboBox<GitflowBranchUtil.ComboEntry> bugfixBaseBranch;
 
     private Project myProject;
     private GitRepository myRepo;
@@ -64,7 +65,7 @@ public class GitflowOpenTaskPanel extends TaskDialogPanel implements ItemListene
             myVcsTaskHandler = vcsTaskHAndlers[0];
         }
 
-        gitflowState = ServiceManager.getService(GitflowState.class);
+        gitflowState = ApplicationManager.getApplication().getService(GitflowState.class);
         gitflowBranchUtil = GitflowBranchUtilManager.getBranchUtil(myRepo);
 
         GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(project, myRepo);

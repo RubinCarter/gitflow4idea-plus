@@ -89,7 +89,7 @@ public class FinishReleaseAction extends AbstractBranchAction {
 	                        // (merge errors are handled in the onSuccess handler)
                         }
                         else {
-                            NotifyUtil.notifyError(myProject, "Error", "Please have a look at the Version Control console for more details");
+                            NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
                         }
 
                         myRepo.update();

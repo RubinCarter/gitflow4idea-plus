@@ -248,7 +248,7 @@ public class GitflowBranchUtil {
         return true;
     }
 
-    public ComboBoxModel createBranchComboModel(String defaultBranch) {
+    public ComboBoxModel<ComboEntry> createBranchComboModel(String defaultBranch) {
         final List<String> branchList = this.getLocalBranchNames();
         branchList.remove(defaultBranch);
 
@@ -259,7 +259,7 @@ public class GitflowBranchUtil {
             entries[i] = new ComboEntry(branchName, branchName);
         }
 
-        return new DefaultComboBoxModel(entries);
+        return new DefaultComboBoxModel<>(entries);
     }
 
     /**

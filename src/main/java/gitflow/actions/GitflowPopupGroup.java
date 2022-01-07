@@ -45,9 +45,7 @@ public class GitflowPopupGroup {
             actionGroup.addAll(repoActions);
         }
         else{
-            Iterator gitRepositoriesIterator = gitRepositories.iterator();
-            while(gitRepositoriesIterator.hasNext()){
-                GitRepository repo = (GitRepository) gitRepositoriesIterator.next();
+            for (GitRepository repo : gitRepositories) {
                 RepoActions repoActions = new RepoActions(myProject, repo);
                 actionGroup.add(repoActions);
             }

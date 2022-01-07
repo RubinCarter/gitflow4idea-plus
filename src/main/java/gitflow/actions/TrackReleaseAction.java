@@ -58,7 +58,7 @@ public class TrackReleaseAction extends AbstractTrackAction {
                             NotifyUtil.notifySuccess(myProject, releaseName, trackedReleaseMessage);
                         }
                         else {
-                            NotifyUtil.notifyError(myProject, "Error", "Please have a look at the Version Control console for more details");
+                            NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
                         }
 
                         myRepo.update();

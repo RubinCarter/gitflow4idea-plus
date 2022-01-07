@@ -42,10 +42,7 @@ public class GitflowBranchUtilManager {
         }
 
         List<GitRepository> gitRepositories = GitUtil.getRepositoryManager(proj).getRepositories();
-
-        Iterator gitRepositoriesIterator = gitRepositories.iterator();
-        while(gitRepositoriesIterator.hasNext()){
-            GitRepository repo = (GitRepository) gitRepositoriesIterator.next();
+        for (GitRepository repo : gitRepositories) {
             GitflowBranchUtilManager.setupBranchUtil(proj, repo);
         }
     }

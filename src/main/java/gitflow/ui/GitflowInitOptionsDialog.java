@@ -5,6 +5,7 @@ import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.CollectionComboBoxModel;
+import gitflow.GitflowBranchUtil;
 import gitflow.GitflowInitOptions;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,6 +13,7 @@ import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,8 +24,8 @@ public class GitflowInitOptionsDialog extends DialogWrapper {
     private JPanel contentPane;
     private JCheckBox useNonDefaultConfigurationCheckBox;
 
-    private JComboBox productionBranchComboBox;
-    private JComboBox developmentBranchComboBox;
+    private JComboBox<String> productionBranchComboBox;
+    private JComboBox<String> developmentBranchComboBox;
     private JTextField featurePrefixTextField;
     private JTextField releasePrefixTextField;
     private JTextField hotfixPrefixTextField;
@@ -51,11 +53,11 @@ public class GitflowInitOptionsDialog extends DialogWrapper {
 
     private void setLocalBranchesComboBox(boolean isNonDefault){
         if (isNonDefault){
-            developmentBranchComboBox.setModel(new CollectionComboBoxModel(localBranches));
-            productionBranchComboBox.setModel(new CollectionComboBoxModel(localBranches));
+            developmentBranchComboBox.setModel(new CollectionComboBoxModel<>(localBranches));
+            productionBranchComboBox.setModel(new CollectionComboBoxModel<>(localBranches));
         } else {
-            developmentBranchComboBox.setModel(new CollectionComboBoxModel(Arrays.asList("develop")));
-            productionBranchComboBox.setModel(new CollectionComboBoxModel(Arrays.asList("master")));
+            developmentBranchComboBox.setModel(new CollectionComboBoxModel<>(Collections.singletonList("develop")));
+            productionBranchComboBox.setModel(new CollectionComboBoxModel<>(Collections.singletonList("master")));
         }
     }
 

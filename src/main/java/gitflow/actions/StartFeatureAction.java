@@ -58,7 +58,7 @@ public class StartFeatureAction extends AbstractStartAction {
             String startedFeatureMessage = String.format("A new branch '%s%s' was created, based on '%s'", branchUtil.getPrefixFeature(), featureName, baseBranchName);
             NotifyUtil.notifySuccess(myProject, featureName, startedFeatureMessage);
         } else {
-            NotifyUtil.notifyError(myProject, "Error", "Please have a look at the Version Control console for more details");
+            NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
         }
 
         myRepo.update();

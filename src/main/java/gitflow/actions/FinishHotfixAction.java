@@ -67,7 +67,7 @@ public class FinishHotfixAction extends AbstractBranchAction {
                         NotifyUtil.notifySuccess(myProject, hotfixName, finishedHotfixMessage);
                     }
                     else {
-                        NotifyUtil.notifyError(myProject, "Error", "Please have a look at the Version Control console for more details");
+                        NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
                     }
 
                     myRepo.update();

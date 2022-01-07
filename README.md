@@ -3,7 +3,7 @@
 
 An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent [Driessen's branching model](http://nvie.com/git-model).
 
-![screenshot](https://github.com/RubinCarter/gitflow4idea-fix/images/gitflow.jpg)
+![screenshot](https://github.com/RubinCarter/gitflow4idea-fix/blob/develop/docs/img/gitflow.png)
 
  
 

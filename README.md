@@ -3,7 +3,7 @@
 
 An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent [Driessen's branching model](http://nvie.com/git-model).
 
-![screenshot](http://opherv.github.io/gitflow4idea/images/gitflow.jpg)
+![screenshot](https://github.com/RubinCarter/gitflow4idea-fix/images/gitflow.jpg)
 
  
 
@@ -21,7 +21,7 @@ Huge shoutout [to Kirill Likhodedov](https://github.com/klikh), who wrote much o
 
 The plugin is available via the IntelliJ plugin manager. Just search for "Git Flow Integration" to get the latest version!
 
-**The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years.** See this page [for details](https://github.com/OpherV/gitflow4idea/blob/develop/GITFLOW_VERSION.md)
+**The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years.** See this page [for details](https://github.com/RubinCarter/gitflow4idea-fix/blob/develop/GITFLOW_VERSION.md)
 
 ## Caveats
 
@@ -30,7 +30,7 @@ While the plugin is operational and contains all basic functions (init/feature/r
 ## Helping out
 
 This project is under active development.
-If you encounter any bug or an issue, I encourage you to add the them to the [Issues list](https://github.com/OpherV/gitflow4idea/issues) on Github.
+If you encounter any bug or an issue, I encourage you to add the them to the [Issues list](https://github.com/RubinCarter/gitflow4idea-fix/issues) on Github.
 Feedback and suggestions are also very welcome.
 
 ## License

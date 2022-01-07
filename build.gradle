@@ -7,6 +7,11 @@ compileJava {
     options.compilerArgs += ["-Xlint"]
 }
 
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
 group 'gitflow4idea-fix'
 version '0.7.8'
 
@@ -18,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation(group: 'junit', name: 'junit', version: '4.12')
 }
 
 intellij {

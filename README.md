@@ -3,18 +3,9 @@
 
 An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent [Driessen's branching model](http://nvie.com/git-model).
 
-![screenshot](http://opherv.github.io/gitflow4idea/images/gitflow.jpg)
+![screenshot](https://github.com/RubinCarter/gitflow4idea-fix/blob/develop/docs/img/gitflow.png)
 
-## Supporting my work (so that the plugin doesn't die)
-
-Do you use this free software at work? Great! Would you like it to stay free? Of course you do.
-
-I'm not a Java developer. In fact, I don't even like Java. Still I've been actively supporting this plugin for the past 5+ years on my own free time.
-
-If saved you or your company time and effort, please consider supporting me by buying me a cup of coffee.
-Better yet, get your boss to donate 10 cups. It's company money, they won't mind.
-
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/R6R0TFS7)
+ 
 
 ## Getting started
 
@@ -24,18 +15,13 @@ For the best introduction to get started with `git flow`, please read Jeff Kreef
 
 Or have a look at this [cheat sheet](http://danielkummer.github.io/git-flow-cheatsheet/) by Daniel Kummer:
 
-## Who and why
-
-This plugin was created by [Opher Vishnia](http://www.opherv.com), after I couldn't find any similar implementation.
-I saw this [suggestion page](http://youtrack.jetbrains.com/issue/IDEA-65491) on the JetBrains site has more than 220 likes and 80 comments, and decided to take up the gauntlet :)
-
 Huge shoutout [to Kirill Likhodedov](https://github.com/klikh), who wrote much of the original git4idea plugin, without which this plugin could not exist
 
 ## Installation
 
 The plugin is available via the IntelliJ plugin manager. Just search for "Git Flow Integration" to get the latest version!
 
-**The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years.** See this page [for details](https://github.com/OpherV/gitflow4idea/blob/develop/GITFLOW_VERSION.md)
+**The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years.** See this page [for details](https://github.com/RubinCarter/gitflow4idea-fix/blob/develop/GITFLOW_VERSION.md)
 
 ## Caveats
 
@@ -44,7 +30,7 @@ While the plugin is operational and contains all basic functions (init/feature/r
 ## Helping out
 
 This project is under active development.
-If you encounter any bug or an issue, I encourage you to add the them to the [Issues list](https://github.com/OpherV/gitflow4idea/issues) on Github.
+If you encounter any bug or an issue, I encourage you to add the them to the [Issues list](https://github.com/RubinCarter/gitflow4idea-fix/issues) on Github.
 Feedback and suggestions are also very welcome.
 
 ## License
@@ -52,4 +38,10 @@ Feedback and suggestions are also very welcome.
 This plugin is under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0.html).
 Copyright 2013-2020, Opher Vishnia.
 
+## Who and why
+
+This plugin was created by [Opher Vishnia](http://www.opherv.com), after I couldn't find any similar implementation.
+I saw this [suggestion page](http://youtrack.jetbrains.com/issue/IDEA-65491) on the JetBrains site has more than 220 likes and 80 comments, and decided to take up the gauntlet :)
+
+This plugin is forked from original https://github.com/OpherV/gitflow4idea With adding some extended features missing.
 

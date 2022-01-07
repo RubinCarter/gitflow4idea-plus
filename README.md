@@ -52,4 +52,6 @@ Feedback and suggestions are also very welcome.
 This plugin is under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0.html).
 Copyright 2013-2020, Opher Vishnia.
 
+##
+This plugin is forked from original https://github.com/OpherV/gitflow4idea With adding some extended features missing.
 

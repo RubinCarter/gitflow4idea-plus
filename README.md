@@ -23,7 +23,7 @@ The plugin is available via the IntelliJ plugin manager. Just search for "Git Fl
 
 **The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years.** See this page [for details](https://github.com/RubinCarter/gitflow4idea-fix/blob/develop/GITFLOW_VERSION.md)
 
-## Offline installation
+## Offline Installation
 download path: https://github.com/RubinCarter/gitflow4idea-fix/releases
 Installation document:https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk
 

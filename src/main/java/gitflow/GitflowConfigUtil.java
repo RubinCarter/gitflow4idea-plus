@@ -58,7 +58,7 @@ public class GitflowConfigUtil {
         } else {
             Map<String, GitflowConfigUtil> innerMap = new HashMap<String, GitflowConfigUtil>();
             instance = new GitflowConfigUtil(project_, repo_);
-            instance.init();
+            //instance.init();
 
             gitflowConfigUtilMap.put(project_, innerMap);
             innerMap.put(repo_.getPresentableUrl(), instance);

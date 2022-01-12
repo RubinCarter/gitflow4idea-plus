@@ -31,6 +31,11 @@ public class NotifyUtil
     }
 
     private static void notify(NotificationType type, NotificationGroup group, Project project, String title, String message) {
-        group.createNotification(title, message, type).notify(project);
+        try {
+            group.createNotification(title, message, type).notify(project);
+        } catch (NoSuchMethodError e) {
+            //兼容旧版本
+            group.createNotification(title, message, type, null).notify(project);
+        }
     }
 }

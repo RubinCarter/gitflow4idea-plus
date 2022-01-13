@@ -1,5 +1,6 @@
 package gitflow;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -8,10 +9,12 @@ import com.intellij.json.psi.*;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
+import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.vcs.VcsException;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiManager;
+import com.intellij.psi.impl.source.tree.CompositeElement;
 import git4idea.config.GitConfigUtil;
 import git4idea.repo.GitRepository;
 import gitflow.ui.NotifyUtil;
@@ -58,7 +61,7 @@ public class GitflowConfigUtil {
         } else {
             Map<String, GitflowConfigUtil> innerMap = new HashMap<String, GitflowConfigUtil>();
             instance = new GitflowConfigUtil(project_, repo_);
-            //instance.init();
+            instance.init();
 
             gitflowConfigUtilMap.put(project_, innerMap);
             innerMap.put(repo_.getPresentableUrl(), instance);
@@ -83,17 +86,27 @@ public class GitflowConfigUtil {
             Future<?> f = ApplicationManager.getApplication().executeOnPooledThread(() -> {
                 VirtualFile gitflowConfigFile = ProjectFileIndex.getInstance(project).getContentRootForFile(project.getProjectFile()).findChild("gitflow-init.json");
                 if (gitflowConfigFile != null) {
-                    Optional.ofNullable((JsonFile)PsiManager.getInstance(project).findFile(gitflowConfigFile)).map(JsonFile::getTopLevelValue).ifPresent(bean-> {
-                        JsonObject configJson = (JsonObject)bean;
-                        setDevelopBranch(JSONUtils.getValue(configJson, "developBranch", String.class));
-                        setMasterBranch(JSONUtils.getValue(configJson, "masterBranch", String.class));
-                        setFeaturePrefix(JSONUtils.getValue(configJson, "featurePrefix", String.class));
-                        setReleasePrefix(JSONUtils.getValue(configJson,"releasePrefix", String.class));
-                        setHotfixPrefix(JSONUtils.getValue(configJson,"hotfixPrefix", String.class));
-                        setSupportPrefix(JSONUtils.getValue(configJson,"supportPrefix", String.class));
-                        setBugfixPrefix(JSONUtils.getValue(configJson,"bugfixPrefix", String.class));
-                        setVersionPrefix(JSONUtils.getValue(configJson,"versionTagPrefix", String.class));
+                    ApplicationManager.getApplication().runReadAction(() -> {
+                        Optional.ofNullable((JsonFile)PsiManager.getInstance(project).findFile(gitflowConfigFile)).map(JsonFile::getTopLevelValue).ifPresent(bean-> {
+                            JsonObject configJson = (JsonObject)bean;
+                            developBranch = JSONUtils.getValue(configJson, "developBranch", String.class);
+                            masterBranch = JSONUtils.getValue(configJson, "masterBranch", String.class);
+                            featurePrefix = JSONUtils.getValue(configJson, "featurePrefix", String.class);
+                            releasePrefix = JSONUtils.getValue(configJson, "releasePrefix", String.class);
+                            hotfixPrefix = JSONUtils.getValue(configJson, "hotfixPrefix", String.class);
+                            supportPrefix = JSONUtils.getValue(configJson, "supportPrefix", String.class);
+                            bugfixPrefix = JSONUtils.getValue(configJson, "bugfixPrefix", String.class);
+                            versiontagPrefix = JSONUtils.getValue(configJson, "versionTagPrefix", String.class);
+                        });
                     });
+                    setDevelopBranch(developBranch);
+                    setMasterBranch(masterBranch);
+                    setFeaturePrefix(featurePrefix);
+                    setReleasePrefix(releasePrefix);
+                    setHotfixPrefix(hotfixPrefix);
+                    setSupportPrefix(supportPrefix);
+                    setBugfixPrefix(bugfixPrefix);
+                    setVersionPrefix(versiontagPrefix);
                 }
             });
             f.get();

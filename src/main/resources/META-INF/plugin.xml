@@ -1,6 +1,6 @@
 <idea-plugin>
     <!-- Values with SET_BY_GRADLE are defined in patchPluginXml task in build.gradle. -->
-    <name>Git Flow Integration PLUS</name>
+    <name>Git Flow Integration Plus</name>
     <id>SET_BY_GRADLE</id>
     <description>SET_BY_GRADLE</description>
     <version>SET_BY_GRADLE</version>

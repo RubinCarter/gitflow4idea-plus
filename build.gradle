@@ -13,7 +13,7 @@ repositories {
 }
 
 group 'gitflow4idea-plus'
-version '0.7.10'
+version '0.7.9'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,14 +39,9 @@ patchPluginXml {
 //    untilBuild '212.*'
     changeNotes """
 
-    <H2>Changelog for 0.7.10</H2>
+    <H2>Changelog for 0.7.9</H2>
       <ul>
         <li>Support for 2022.1 build</li>
-      </ul>
-
-      <H2>Changelog for 0.7.9</H2>
-      <ul>
-        <li>Compatible with 2020.3+ older versions</li>
       </ul>
 
       <H2>Changelog for 0.7.8</H2>

@@ -13,7 +13,7 @@ repositories {
 }
 
 group 'gitflow4idea-plus'
-version '0.7.9'
+version '0.7.10'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -25,6 +25,7 @@ dependencies {
 intellij {
     version '2021.2'
     plugins 'git4idea', 'tasks'
+    updateSinceUntilBuild false
 }
 
 patchPluginXml {
@@ -37,6 +38,11 @@ patchPluginXml {
     sinceBuild '212.0'
 //    untilBuild '212.*'
     changeNotes """
+
+    <H2>Changelog for 0.7.10</H2>
+      <ul>
+        <li>Support for 2022.1 build</li>
+      </ul>
 
       <H2>Changelog for 0.7.9</H2>
       <ul>

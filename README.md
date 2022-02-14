@@ -50,5 +50,5 @@ Copyright 2013-2020, Opher Vishnia.
 This plugin was created by [Opher Vishnia](http://www.opherv.com), after I couldn't find any similar implementation.
 I saw this [suggestion page](http://youtrack.jetbrains.com/issue/IDEA-65491) on the JetBrains site has more than 220 likes and 80 comments, and decided to take up the gauntlet :)
 
-This plugin is forked from original https://github.com/OpherV/gitflow4idea With adding some extended features missing.
+This plugin is forked from original https://github.com/OpherV/gitflow4idea .
 

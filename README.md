@@ -1,5 +1,7 @@
 # Git Flow Integration Plus for Intellij
 
+### Available @ [JetBrains Plugins Repository][1]
+
 
 An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent [Driessen's branching model](http://nvie.com/git-model).
 
@@ -52,3 +54,6 @@ I saw this [suggestion page](http://youtrack.jetbrains.com/issue/IDEA-65491) on 
 
 This plugin is forked from original https://github.com/OpherV/gitflow4idea .
 
+
+
+[1]: https://plugins.jetbrains.com/plugin/18320-git-flow-integration-plus

@@ -1,4 +1,6 @@
-# Git Flow Integration for Intellij
+# Git Flow Integration Plus for Intellij
+
+### Available @ [JetBrains Plugins Repository][1]
 
 
 An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent [Driessen's branching model](http://nvie.com/git-model).
@@ -17,9 +19,16 @@ Or have a look at this [cheat sheet](http://danielkummer.github.io/git-flow-chea
 
 Huge shoutout [to Kirill Likhodedov](https://github.com/klikh), who wrote much of the original git4idea plugin, without which this plugin could not exist
 
-## Installation
+## Online Installation
 
-The plugin is available via the IntelliJ plugin manager. Just search for "Git Flow Integration" to get the latest version!
+The plugin is available via the IntelliJ plugin manager. Just search for "Git Flow Integration Plus" to get the latest version!
+
+**The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years.** See this page [for details](https://github.com/RubinCarter/gitflow4idea-fix/blob/develop/GITFLOW_VERSION.md)
+
+## Offline Installation
+download path: https://github.com/RubinCarter/gitflow4idea-fix/releases
+
+Installation document:https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk
 
 **The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years.** See this page [for details](https://github.com/RubinCarter/gitflow4idea-fix/blob/develop/GITFLOW_VERSION.md)
 
@@ -43,5 +52,8 @@ Copyright 2013-2020, Opher Vishnia.
 This plugin was created by [Opher Vishnia](http://www.opherv.com), after I couldn't find any similar implementation.
 I saw this [suggestion page](http://youtrack.jetbrains.com/issue/IDEA-65491) on the JetBrains site has more than 220 likes and 80 comments, and decided to take up the gauntlet :)
 
-This plugin is forked from original https://github.com/OpherV/gitflow4idea With adding some extended features missing.
+This plugin is forked from original https://github.com/OpherV/gitflow4idea .
 
+
+
+[1]: https://plugins.jetbrains.com/plugin/18320-git-flow-integration-plus

@@ -11,6 +11,7 @@ import git4idea.repo.GitRepository;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -100,8 +101,10 @@ class RepoActions extends BranchActionGroup implements PopupElementWithAdditiona
     }
 
     public void updateFavoriteIcon(){
-        boolean isFavorite = GitBranchUtil.getCurrentRepository(myProject) == myRepo;
-        setFavorite(isFavorite);
+        SwingUtilities.invokeLater(() -> {
+            boolean isFavorite = GitBranchUtil.getCurrentRepository(myProject) == myRepo;
+            setFavorite(isFavorite);
+        });
     }
 
     @Override

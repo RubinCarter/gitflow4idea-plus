@@ -2,6 +2,7 @@ package gitflow;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;

@@ -35,7 +35,7 @@ public class GitflowPopupGroup {
      * Generates the popup actions for the widget
      */
     private void createActionGroup(boolean includeAdvanced){
-        actionGroup = new DefaultActionGroup(null, false);
+        actionGroup = new DefaultActionGroup();
 
 
         if (gitRepositories.size() == 1){

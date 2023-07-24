@@ -1,11 +1,7 @@
 plugins {
-    id("java")
-    id("org.jetbrains.intellij") version "1.9.0"
+    kotlin("jvm") version "1.5.21"
+    id("org.jetbrains.intellij") version "1.13.3"
 }
-
-/*compileJava {
-    options.compilerArgs += ["-Xlint"]
-}*/
 
 repositories {
     mavenLocal()
@@ -13,7 +9,7 @@ repositories {
 }
 
 group = "gitflow4idea-plus"
-version = "0.7.11"
+version = "0.7.12"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -25,8 +21,8 @@ dependencies {
 }
 
 intellij {
-    version.set("2022.2.1")
-    plugins.set(listOf("git4idea", "tasks"))
+    version.set("2023.1.4")
+    plugins.set(listOf("Git4Idea", "tasks"))
     updateSinceUntilBuild.set(false)
 }
 
@@ -34,11 +30,14 @@ tasks {
     patchPluginXml {
         pluginId.set("Gitflow-Fix")
         pluginDescription.set("""
-            <H2>Git Flow Integration for Intellij</H2>
-            An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="http://nvie.com/git-model">Driessen's branching model</a>
-        """)
+             <H2>Git Flow Integration for Intellij</H2>
+                An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="http://nvie.com/git-model">Driessen's branching model</a>
+        """.trimIndent())
         version.set("${project.version}")
-        sinceBuild.set("222.3739.54")
+
+        sinceBuild.set("231.9225.15")
+//        untilBuild.set("203.*")
+
         changeNotes.set("""
             <H2>Changelog for 0.7.11</H2>
             <ul>

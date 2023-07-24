@@ -7,7 +7,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+//import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,7 +21,9 @@ public class GitflowVersionTester {
 		return testers.computeIfAbsent(
 			project,
 			p -> {
-				Disposer.register(p, () -> testers.remove(p));
+				if(!p.isDisposed()) {
+					Disposer.register(p, () -> testers.remove(p));
+				}
 				return new GitflowVersionTester(ApplicationManager.getApplication().getService(Gitflow.class), p);
 			}
 		);
@@ -45,7 +47,7 @@ public class GitflowVersionTester {
 	 *
 	 * @return the {@code git flow} version, or {@code null}
 	 */
-	@Nullable
+//	@Nullable
 	public String getVersion() {
 		return version;
 	}

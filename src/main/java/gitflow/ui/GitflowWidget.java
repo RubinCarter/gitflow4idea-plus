@@ -88,17 +88,17 @@ public class GitflowWidget extends GitBranchWidget implements GitRepositoryChang
         return this;
     }
 
-    @Override
+//    @Override
     public void selectionChanged(FileEditorManagerEvent event) {
         //updateAsync();
     }
 
-    @Override
+//    @Override
     public void fileOpened(FileEditorManager source, VirtualFile file) {
         //updateAsync();
     }
 
-    @Override
+//    @Override
     public void fileClosed(FileEditorManager source, VirtualFile file) {
         //updateAsync();
     }

@@ -29,10 +29,10 @@ intellij {
 tasks {
     patchPluginXml {
         pluginId.set("Gitflow-Fix")
-        pluginDescription.set("""<![CDATA[
+        pluginDescription.set("""
              <H2>Git Flow Integration for Intellij</H2>
-                An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="http://nvie.com/git-model">Driessen's branching model</a>
-        ]]>""".trimIndent())
+             <p>An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="https://nvie.com/posts/a-successful-git-branching-model/">Driessen's branching model</a></p>
+        """)
         version.set("${project.version}")
 
         sinceBuild.set("231.8109.175")

@@ -21,7 +21,7 @@ dependencies {
 }
 
 intellij {
-    version.set("2023.1.4")
+    version.set("2023.1")
     plugins.set(listOf("Git4Idea", "tasks"))
     updateSinceUntilBuild.set(false)
 }
@@ -35,10 +35,15 @@ tasks {
         """.trimIndent())
         version.set("${project.version}")
 
-        sinceBuild.set("231.9225.15")
+        sinceBuild.set("231.8109.175")
 //        untilBuild.set("203.*")
 
         changeNotes.set("""
+            <H2>Changelog for 0.7.12</H2>
+            <ul>
+              <li>Fix "(class com.intellij.openapi.project.impl.ProjectImpl) has already been disposed" #29 </li>
+            </ul>
+            
             <H2>Changelog for 0.7.11</H2>
             <ul>
               <li>Fix "Access is allowed from event dispatch thread only" #17 #21 #19 </li>

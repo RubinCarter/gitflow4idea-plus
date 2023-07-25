@@ -1,7 +1,11 @@
 plugins {
-    kotlin("jvm") version "1.5.21"
-    id("org.jetbrains.intellij") version "1.13.3"
+    id("java")
+    id("org.jetbrains.intellij") version "1.9.0"
 }
+
+/*compileJava {
+    options.compilerArgs += ["-Xlint"]
+}*/
 
 repositories {
     mavenLocal()
@@ -9,7 +13,7 @@ repositories {
 }
 
 group = "gitflow4idea-plus"
-version = "0.7.12"
+version = "0.7.13"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -21,8 +25,8 @@ dependencies {
 }
 
 intellij {
-    version.set("2023.1")
-    plugins.set(listOf("Git4Idea", "tasks"))
+    version.set("2022.2.1")
+    plugins.set(listOf("git4idea", "tasks"))
     updateSinceUntilBuild.set(false)
 }
 
@@ -30,20 +34,12 @@ tasks {
     patchPluginXml {
         pluginId.set("Gitflow-Fix")
         pluginDescription.set("""
-             <H2>Git Flow Integration for Intellij</H2>
-             <p>An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="https://nvie.com/posts/a-successful-git-branching-model/">Driessen's branching model</a></p>
+            <H2>Git Flow Integration for Intellij</H2>
+            An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="http://nvie.com/git-model">Driessen's branching model</a>
         """)
         version.set("${project.version}")
-
-        sinceBuild.set("231.8109.175")
-//        untilBuild.set("203.*")
-
+        sinceBuild.set("222.3739.54")
         changeNotes.set("""
-            <H2>Changelog for 0.7.12</H2>
-            <ul>
-              <li>Fix "(class com.intellij.openapi.project.impl.ProjectImpl) has already been disposed" #29 </li>
-            </ul>
-            
             <H2>Changelog for 0.7.11</H2>
             <ul>
               <li>Fix "Access is allowed from event dispatch thread only" #17 #21 #19 </li>

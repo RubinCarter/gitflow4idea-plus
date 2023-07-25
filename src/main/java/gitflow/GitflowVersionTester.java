@@ -21,7 +21,9 @@ public class GitflowVersionTester {
 		return testers.computeIfAbsent(
 			project,
 			p -> {
-				Disposer.register(p, () -> testers.remove(p));
+				if(!p.isDisposed()) {
+					Disposer.register(p, () -> testers.remove(p));
+				}
 				return new GitflowVersionTester(ApplicationManager.getApplication().getService(Gitflow.class), p);
 			}
 		);

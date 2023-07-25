@@ -40,6 +40,11 @@ tasks {
         version.set("${project.version}")
         sinceBuild.set("222.3739.54")
         changeNotes.set("""
+            <H2>Changelog for 0.7.13</H2>
+            <ul>
+              <li>Fix "(class com.intellij.openapi.project.impl.ProjectImpl) has already been disposed" #29 </li>
+            </ul>
+            
             <H2>Changelog for 0.7.11</H2>
             <ul>
               <li>Fix "Access is allowed from event dispatch thread only" #17 #21 #19 </li>

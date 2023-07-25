@@ -35,7 +35,7 @@ tasks {
         pluginId.set("Gitflow-Fix")
         pluginDescription.set("""
             <H2>Git Flow Integration for Intellij</H2>
-            An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="http://nvie.com/git-model">Driessen's branching model</a>
+            An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="https://nvie.com/posts/a-successful-git-branching-model/">Driessen's branching model</a>
         """)
         version.set("${project.version}")
         sinceBuild.set("222.3739.54")

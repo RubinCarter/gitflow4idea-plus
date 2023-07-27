@@ -23,26 +23,28 @@ public class PublishReleaseAction extends AbstractPublishAction {
     public void actionPerformed(AnActionEvent anActionEvent) {
         super.actionPerformed(anActionEvent);
 
-        GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
-        final String releaseName= gitflowConfigUtil.getReleaseNameFromBranch(branchUtil.getCurrentBranchName());
-        final GitflowErrorsListener errorLineHandler = new GitflowErrorsListener(myProject);
+        startPublish(() -> {
+            GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
+            final String releaseName= gitflowConfigUtil.getReleaseNameFromBranch(branchUtil.getCurrentBranchName());
+            final GitflowErrorsListener errorLineHandler = new GitflowErrorsListener(myProject);
 
-        new Task.Backgroundable(myProject,"Publishing release "+releaseName,false){
-            @Override
-            public void run(@NotNull ProgressIndicator indicator) {
-                GitCommandResult result = myGitflow.publishRelease(myRepo, releaseName, errorLineHandler);
+            new Task.Backgroundable(myProject,"Publishing release "+releaseName,false){
+                @Override
+                public void run(@NotNull ProgressIndicator indicator) {
+                    GitCommandResult result = myGitflow.publishRelease(myRepo, releaseName, errorLineHandler);
 
-                if (result.success()) {
-                    String publishedReleaseMessage = String.format("A new remote branch '%s%s' was created", branchUtil.getPrefixRelease(), releaseName);
-                    NotifyUtil.notifySuccess(myProject, releaseName, publishedReleaseMessage);
+                    if (result.success()) {
+                        String publishedReleaseMessage = String.format("A new remote branch '%s%s' was created", branchUtil.getPrefixRelease(), releaseName);
+                        NotifyUtil.notifySuccess(myProject, releaseName, publishedReleaseMessage);
+                    }
+                    else {
+                        NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
+                    }
+
+                    myRepo.update();
                 }
-                else {
-                    NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
-                }
-
-                myRepo.update();
-            }
-        }.queue();
+            }.queue();
+        });
 
     }
 }

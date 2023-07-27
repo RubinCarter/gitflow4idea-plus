@@ -1,5 +1,6 @@
 package gitflow.actions;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
@@ -22,27 +23,30 @@ public class PublishFeatureAction extends AbstractPublishAction {
     public void actionPerformed(AnActionEvent anActionEvent) {
         super.actionPerformed(anActionEvent);
 
-        GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
-        final String featureName= gitflowConfigUtil.getFeatureNameFromBranch(branchUtil.getCurrentBranchName());
+        startPublish(() -> {
+            GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
+            final String featureName= gitflowConfigUtil.getFeatureNameFromBranch(branchUtil.getCurrentBranchName());
 
-        new Task.Backgroundable(myProject,"Publishing feature "+featureName,false){
-            @Override
-            public void run(@NotNull ProgressIndicator indicator) {
-                GitCommandResult result = myGitflow.publishFeature(myRepo, featureName,new GitflowErrorsListener(myProject));
+            new Task.Backgroundable(myProject,"Publishing feature "+featureName,false){
+                @Override
+                public void run(@NotNull ProgressIndicator indicator) {
+                    GitCommandResult result = myGitflow.publishFeature(myRepo, featureName,new GitflowErrorsListener(myProject));
 
-                if (result.success()) {
-                    String publishedFeatureMessage = String.format("A new remote branch '%s%s' was created", branchUtil.getPrefixFeature(), featureName);
-                    NotifyUtil.notifySuccess(myProject, featureName, publishedFeatureMessage);
+                    if (result.success()) {
+                        String publishedFeatureMessage = String.format("A new remote branch '%s%s' was created", branchUtil.getPrefixFeature(), featureName);
+                        NotifyUtil.notifySuccess(myProject, featureName, publishedFeatureMessage);
+                    }
+                    else {
+                        NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
+                    }
+
+                    myRepo.update();
+
+
                 }
-                else {
-                    NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
-                }
-
-                myRepo.update();
-
-
-            }
-        }.queue();
+            }.queue();
+        });
 
     }
+
 }

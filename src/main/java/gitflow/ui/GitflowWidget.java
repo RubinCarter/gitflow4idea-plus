@@ -25,6 +25,7 @@ import com.intellij.openapi.fileEditor.FileEditorManagerEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.MessageDialogBuilder;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.ui.popup.JBPopup;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.IdeFocusManager;
@@ -109,19 +110,13 @@ public class GitflowWidget extends GitBranchWidget implements GitRepositoryChang
         updateAsync();
     }
 
-    @Nullable
-    @ Override
-    public ListPopup getPopupStep() {
+    @Override
+    public @Nullable JBPopup getPopup() {
         Project project = IDEAUtils.getActiveProject();
 
         if (project == null) {
             return null;
         }
-        GitRepository repo = GitBranchUtil.getCurrentRepository(project);
-        if (repo == null) {
-            return null;
-        }
-
         Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
         if (focusOwner == null) {
             IdeFocusManager focusManager = IdeFocusManager.getInstance(project);
@@ -132,10 +127,13 @@ public class GitflowWidget extends GitBranchWidget implements GitRepositoryChang
         }
 
         DataContext dataContext = DataManager.getInstance().getDataContext(focusOwner);
-        ListPopup listPopup = new PopupFactoryImpl.ActionGroupPopup("Gitflow Actions", popupGroup.getActionGroup(), dataContext, false, false, false, true, null, -1,
-                null, null);
+        GitRepository repo = GitBranchUtil.guessRepositoryForOperation(project, dataContext);
+        if (repo == null) {
+            return null;
+        }
 
-        return listPopup;
+        return new PopupFactoryImpl.ActionGroupPopup("Gitflow Actions", popupGroup.getActionGroup(), dataContext, false, false, false, true, null, -1,
+                null, null);
     }
 
     @NotNull
@@ -160,7 +158,7 @@ public class GitflowWidget extends GitBranchWidget implements GitRepositoryChang
     public Consumer<MouseEvent> getClickConsumer() {
         return mouseEvent -> {
             if (getIsSupportedVersion()) {
-                final ListPopup popup = getPopupStep();
+                final JBPopup popup = getPopup();
                 if (popup == null) return;
                 final Dimension dimension = popup.getContent().getPreferredSize();
                 final Point at = new Point(0, -dimension.height);

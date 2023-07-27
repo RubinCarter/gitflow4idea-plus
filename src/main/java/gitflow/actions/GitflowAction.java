@@ -47,7 +47,7 @@ public abstract class GitflowAction extends DumbAwareAction {
 
         // if repo isn't set explicitly, such as in the case of starting from keyboard shortcut, infer it
         if (myRepo == null){
-            myRepo = GitBranchUtil.getCurrentRepository(project);
+            myRepo = GitBranchUtil.guessRepositoryForOperation(project, e.getDataContext());
         }
         setup(project);
     }

@@ -1,11 +1,7 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.14.2"
 }
-
-/*compileJava {
-    options.compilerArgs += ["-Xlint"]
-}*/
 
 repositories {
     mavenLocal()
@@ -13,11 +9,11 @@ repositories {
 }
 
 group = "gitflow4idea-plus"
-version = "0.7.13"
+version = "0.7.14"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
@@ -25,8 +21,8 @@ dependencies {
 }
 
 intellij {
-    version.set("2022.2.1")
-    plugins.set(listOf("git4idea", "tasks"))
+    version.set("2023.1")
+    plugins.set(listOf("Git4Idea", "tasks"))
     updateSinceUntilBuild.set(false)
 }
 
@@ -38,7 +34,7 @@ tasks {
             An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="https://nvie.com/posts/a-successful-git-branching-model/">Driessen's branching model</a>
         """)
         version.set("${project.version}")
-        sinceBuild.set("222.3739.54")
+        sinceBuild.set("231.8109.175")
         changeNotes.set("""
             <H2>Changelog for 0.7.13</H2>
             <ul>

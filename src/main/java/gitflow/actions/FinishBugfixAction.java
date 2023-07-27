@@ -32,22 +32,24 @@ public class FinishBugfixAction extends AbstractBranchAction {
     public void actionPerformed(AnActionEvent e) {
         super.actionPerformed(e);
 
-        String currentBranchName = GitBranchUtil.getBranchNameOrRev(myRepo);
-        if (currentBranchName.isEmpty()==false){
+        runReadAction(() -> {
+            String currentBranchName = GitBranchUtil.getBranchNameOrRev(myRepo);
+            if (currentBranchName.isEmpty()==false){
 
-            final AnActionEvent event=e;
-            final String bugfixName;
-            // Check if a bugfix name was specified, otherwise take name from current branch
-            if (customBugfixName !=null){
-                bugfixName = customBugfixName;
-            }
-            else{
-                GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
-                bugfixName = gitflowConfigUtil.getBugfixNameFromBranch(currentBranchName);
-            }
+                final AnActionEvent event=e;
+                final String bugfixName;
+                // Check if a bugfix name was specified, otherwise take name from current branch
+                if (customBugfixName !=null){
+                    bugfixName = customBugfixName;
+                }
+                else{
+                    GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
+                    bugfixName = gitflowConfigUtil.getBugfixNameFromBranch(currentBranchName);
+                }
 
-            this.runAction(myProject, bugfixName);
-        }
+                this.runAction(myProject, bugfixName);
+            }
+        });
 
     }
 

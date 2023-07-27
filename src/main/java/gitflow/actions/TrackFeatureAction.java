@@ -44,29 +44,31 @@ public class TrackFeatureAction extends AbstractTrackAction {
 
             branchChoose.show();
             if (branchChoose.isOK()){
-                String branchName= branchChoose.getSelectedBranchName();
-                GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
-                final String featureName = gitflowConfigUtil.getFeatureNameFromBranch(branchName);
-                final GitRemote remote = branchUtil.getRemoteByBranch(branchName);
-                final GitflowErrorsListener errorLineHandler = new GitflowErrorsListener(myProject);
+                runReadAction(() -> {
+                    String branchName= branchChoose.getSelectedBranchName();
+                    GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
+                    final String featureName = gitflowConfigUtil.getFeatureNameFromBranch(branchName);
+                    final GitRemote remote = branchUtil.getRemoteByBranch(branchName);
+                    final GitflowErrorsListener errorLineHandler = new GitflowErrorsListener(myProject);
 
-                new Task.Backgroundable(myProject,"Tracking feature "+featureName,false){
-                    @Override
-                    public void run(@NotNull ProgressIndicator indicator) {
-                        GitCommandResult result = myGitflow.trackFeature(myRepo, featureName, remote, errorLineHandler);
+                    new Task.Backgroundable(myProject,"Tracking feature "+featureName,false){
+                        @Override
+                        public void run(@NotNull ProgressIndicator indicator) {
+                            GitCommandResult result = myGitflow.trackFeature(myRepo, featureName, remote, errorLineHandler);
 
-                        if (result.success()) {
-                            String trackedFeatureMessage = String.format("A new branch '%s%s' was created", branchUtil.getPrefixFeature(), featureName);
-                            NotifyUtil.notifySuccess(myProject, featureName, trackedFeatureMessage);
+                            if (result.success()) {
+                                String trackedFeatureMessage = String.format("A new branch '%s%s' was created", branchUtil.getPrefixFeature(), featureName);
+                                NotifyUtil.notifySuccess(myProject, featureName, trackedFeatureMessage);
+                            }
+                            else {
+                                NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
+                            }
+
+                            myRepo.update();
+
                         }
-                        else {
-                            NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
-                        }
-
-                        myRepo.update();
-
-                    }
-                }.queue();
+                    }.queue();
+                });
             }
         }
         else {

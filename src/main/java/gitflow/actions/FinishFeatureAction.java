@@ -32,22 +32,24 @@ public class FinishFeatureAction extends AbstractBranchAction {
     public void actionPerformed(AnActionEvent e) {
         super.actionPerformed(e);
 
-        String currentBranchName = GitBranchUtil.getBranchNameOrRev(myRepo);
-        if (currentBranchName.isEmpty()==false){
+        runReadAction(() -> {
+            String currentBranchName = GitBranchUtil.getBranchNameOrRev(myRepo);
+            if (currentBranchName.isEmpty()==false){
 
-            final AnActionEvent event=e;
-            final String featureName;
-            // Check if a feature name was specified, otherwise take name from current branch
-            if (customFeatureName!=null){
-                featureName = customFeatureName;
-            }
-            else{
-                GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
-                featureName = gitflowConfigUtil.getFeatureNameFromBranch(currentBranchName);
-            }
+                final AnActionEvent event=e;
+                final String featureName;
+                // Check if a feature name was specified, otherwise take name from current branch
+                if (customFeatureName!=null){
+                    featureName = customFeatureName;
+                }
+                else{
+                    GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
+                    featureName = gitflowConfigUtil.getFeatureNameFromBranch(currentBranchName);
+                }
 
-            this.runAction(myProject, featureName);
-        }
+                this.runAction(myProject, featureName);
+            }
+        });
 
     }
 

@@ -23,7 +23,7 @@ public class PublishReleaseAction extends AbstractPublishAction {
     public void actionPerformed(AnActionEvent anActionEvent) {
         super.actionPerformed(anActionEvent);
 
-        startPublish(() -> {
+        runReadAction(() -> {
             GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
             final String releaseName= gitflowConfigUtil.getReleaseNameFromBranch(branchUtil.getCurrentBranchName());
             final GitflowErrorsListener errorLineHandler = new GitflowErrorsListener(myProject);

@@ -26,28 +26,30 @@ public class FinishHotfixAction extends AbstractBranchAction {
     public void actionPerformed(AnActionEvent e) {
         super.actionPerformed(e);
 
-        String currentBranchName = GitBranchUtil.getBranchNameOrRev(myRepo);
+        runReadAction(() -> {
+            String currentBranchName = GitBranchUtil.getBranchNameOrRev(myRepo);
 
 
-        if (currentBranchName.isEmpty() == false){
+            if (currentBranchName.isEmpty() == false){
 
-            GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
-            //TODO HOTFIX NAME
-            final String hotfixName = gitflowConfigUtil.getHotfixNameFromBranch(currentBranchName);
+                GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
+                //TODO HOTFIX NAME
+                final String hotfixName = gitflowConfigUtil.getHotfixNameFromBranch(currentBranchName);
 
-            final String tagMessage;
-            String tagMessageTemplate = GitflowConfigurable.getOptionTextString(myProject, "HOTFIX_customHotfixCommitMessage").replace("%name%", hotfixName);
+                final String tagMessage;
+                String tagMessageTemplate = GitflowConfigurable.getOptionTextString(myProject, "HOTFIX_customHotfixCommitMessage").replace("%name%", hotfixName);
 
-            if (GitflowConfigurable.isOptionActive(myProject, "HOTFIX_dontTag")) {
-                tagMessage = "";
+                if (GitflowConfigurable.isOptionActive(myProject, "HOTFIX_dontTag")) {
+                    tagMessage = "";
+                }
+                else {
+                    tagMessage = Messages.showInputDialog(myProject, "Enter the tag message:", "Finish Hotfix", Messages.getQuestionIcon(), tagMessageTemplate, null);
+                }
+
+                this.runAction(e.getProject(), hotfixName, tagMessage);
+
             }
-            else {
-                tagMessage = Messages.showInputDialog(myProject, "Enter the tag message:", "Finish Hotfix", Messages.getQuestionIcon(), tagMessageTemplate, null);
-            }
-
-            this.runAction(e.getProject(), hotfixName, tagMessage);
-
-        }
+        });
 
     }
 

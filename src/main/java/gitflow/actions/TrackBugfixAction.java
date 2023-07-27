@@ -44,26 +44,28 @@ public class TrackBugfixAction extends AbstractTrackAction {
 
             branchChoose.show();
             if (branchChoose.isOK()) {
-                String branchName = branchChoose.getSelectedBranchName();
+                runReadAction(() -> {
+                    String branchName = branchChoose.getSelectedBranchName();
 
-                GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
-                final String bugfixName = gitflowConfigUtil.getBugfixNameFromBranch(branchName);
-                final GitRemote remote = branchUtil.getRemoteByBranch(branchName);
-                final GitflowErrorsListener errorLineHandler = new GitflowErrorsListener(myProject);
+                    GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);
+                    final String bugfixName = gitflowConfigUtil.getBugfixNameFromBranch(branchName);
+                    final GitRemote remote = branchUtil.getRemoteByBranch(branchName);
+                    final GitflowErrorsListener errorLineHandler = new GitflowErrorsListener(myProject);
 
-                new Task.Backgroundable(myProject, "Tracking bugfix " + bugfixName, false) {
-                    @Override
-                    public void run(@NotNull ProgressIndicator indicator) {
-                        GitCommandResult result = myGitflow.trackBugfix(myRepo, bugfixName, remote, errorLineHandler);
-                        if (result.success()) {
-                            String trackedBugfixMessage = String.format("A new branch '%s%s' was created", branchUtil.getPrefixBugfix(), bugfixName);
-                            NotifyUtil.notifySuccess(myProject, bugfixName, trackedBugfixMessage);
-                        } else {
-                            NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
+                    new Task.Backgroundable(myProject, "Tracking bugfix " + bugfixName, false) {
+                        @Override
+                        public void run(@NotNull ProgressIndicator indicator) {
+                            GitCommandResult result = myGitflow.trackBugfix(myRepo, bugfixName, remote, errorLineHandler);
+                            if (result.success()) {
+                                String trackedBugfixMessage = String.format("A new branch '%s%s' was created", branchUtil.getPrefixBugfix(), bugfixName);
+                                NotifyUtil.notifySuccess(myProject, bugfixName, trackedBugfixMessage);
+                            } else {
+                                NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
+                            }
+                            myRepo.update();
                         }
-                        myRepo.update();
-                    }
-                }.queue();
+                    }.queue();
+                });
             }
         } else {
             NotifyUtil.notifyError(myProject, "Error", "No remote branches");

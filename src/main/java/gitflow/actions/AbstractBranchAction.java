@@ -1,5 +1,6 @@
 package gitflow.actions;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import git4idea.repo.GitRepository;
 import org.jetbrains.annotations.NotNull;
@@ -57,4 +58,10 @@ public abstract class AbstractBranchAction extends GitflowAction {
                 return false;
         }
     }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.EDT;
+    }
+
 }

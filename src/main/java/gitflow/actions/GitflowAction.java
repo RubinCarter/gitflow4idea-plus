@@ -1,6 +1,7 @@
 package gitflow.actions;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.DumbAwareAction;
@@ -123,4 +124,10 @@ public abstract class GitflowAction extends DumbAwareAction {
 
 
     }
+
+    protected void runReadAction(Runnable runnable) {
+        Application application = ApplicationManager.getApplication();
+        application.runReadAction(runnable);
+    }
+
 }

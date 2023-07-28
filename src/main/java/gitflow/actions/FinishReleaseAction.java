@@ -9,6 +9,7 @@ import git4idea.commands.GitCommandResult;
 import git4idea.repo.GitRepository;
 import gitflow.GitflowConfigUtil;
 import gitflow.GitflowConfigurable;
+import gitflow.ui.GitflowFinishActionAckDialog;
 import gitflow.ui.NotifyUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,6 +35,13 @@ public class FinishReleaseAction extends AbstractBranchAction {
     @Override
     public void actionPerformed(AnActionEvent e) {
         super.actionPerformed(e);
+
+        GitflowFinishActionAckDialog ackDialog = new GitflowFinishActionAckDialog(myProject);
+        ackDialog.show();
+
+        if(!ackDialog.isOK()) {
+           return;
+        }
 
         runReadAction(() -> {
             String currentBranchName = GitBranchUtil.getBranchNameOrRev(myRepo);

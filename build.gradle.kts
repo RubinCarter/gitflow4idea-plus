@@ -9,7 +9,7 @@ repositories {
 }
 
 group = "gitflow4idea-plus"
-version = "0.7.14"
+version = "0.8.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

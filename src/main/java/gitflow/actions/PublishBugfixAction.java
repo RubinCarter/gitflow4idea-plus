@@ -6,6 +6,8 @@ import com.intellij.openapi.progress.Task;
 import git4idea.commands.GitCommandResult;
 import git4idea.repo.GitRepository;
 import gitflow.GitflowConfigUtil;
+import gitflow.ui.GitflowFinishActionAckDialog;
+import gitflow.ui.GitflowPublishActionAckDialog;
 import gitflow.ui.NotifyUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +24,13 @@ public class PublishBugfixAction extends AbstractPublishAction {
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
         super.actionPerformed(anActionEvent);
+
+        GitflowPublishActionAckDialog ackDialog = new GitflowPublishActionAckDialog(myProject);
+        ackDialog.show();
+
+        if(!ackDialog.isOK()) {
+            return;
+        }
 
         runReadAction(() -> {
             GitflowConfigUtil gitflowConfigUtil = GitflowConfigUtil.getInstance(myProject, myRepo);

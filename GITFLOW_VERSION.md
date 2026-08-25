@@ -1,15 +1,15 @@
-The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years
+The plugin supports the [AVH edition](https://github.com/petervanderdoes/gitflow), [git-flow-next](https://github.com/gittower/git-flow-next), and gitflow-cjs. The unmaintained [Vanilla Git Flow](https://github.com/nvie/gitflow) is not supported.
 
 **How to check Git Flow version**
 
 run `git flow version` 
 
-If it says `0.4.1` then you have the wrong version. You will have to uninstall it and then refer to [AVH edition](https://github.com/petervanderdoes/gitflow) docs for installation. 
+If it identifies the AVH edition, git-flow-next, or gitflow-cjs, it is supported. A `git-flow-next` installation reports `2.0.0 (git-flow-next)` and can be installed with `brew install git-flow-next`.
 
 
 **How to uninstall wrong version on OSX**
 
-If installed via `brew` then run `brew uninstall git-flow`                                            
+If the unsupported Vanilla implementation was installed via Homebrew, run `brew uninstall git-flow` and then install a supported implementation such as `brew install git-flow-next`.
 
 
 **Mac/Linux users:**

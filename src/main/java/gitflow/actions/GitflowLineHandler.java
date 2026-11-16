@@ -3,12 +3,13 @@ package gitflow.actions;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
 import git4idea.commands.GitLineHandlerListener;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 //generic line handler (should handle errors etc)
 public abstract class GitflowLineHandler implements GitLineHandlerListener {
-    ArrayList<String> myErrors=new ArrayList<String>();
+    ArrayList<String> myErrors=new ArrayList<>();
     Project myProject;
 
     @Override
@@ -22,5 +23,5 @@ public abstract class GitflowLineHandler implements GitLineHandlerListener {
     public void processTerminated(int exitCode) {}
 
     @Override
-    public void startFailed(Throwable exception) {}
+    public void startFailed(@NotNull Throwable exception) {}
 }

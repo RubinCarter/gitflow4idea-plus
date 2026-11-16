@@ -13,6 +13,7 @@ public abstract class AbstractGitflowActionAckDialog extends DialogWrapper {
     private JPanel contentPanel;
     private JLabel ackTextLabel;
 
+    @SuppressWarnings("this-escape") //standard DialogWrapper init() pattern
     public AbstractGitflowActionAckDialog(@Nullable Project project) {
         super(project, true);
 

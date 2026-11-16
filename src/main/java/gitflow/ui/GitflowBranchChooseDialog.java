@@ -11,7 +11,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.util.List;
-import java.util.stream.IntStream;
 
 /**
  * Dialog for choosing branches
@@ -27,6 +26,7 @@ public class GitflowBranchChooseDialog extends DialogWrapper {
     private JScrollPane scrollpane;
     private JPanel branchPanel;
 
+    @SuppressWarnings("this-escape") //standard DialogWrapper init() pattern
     public GitflowBranchChooseDialog(Project project, List<String> branchNames) {
         super(project, true);
 
@@ -91,7 +91,7 @@ public class GitflowBranchChooseDialog extends DialogWrapper {
 
                     private void filter() {
                         String text = searchField.getText();
-                        if (text.trim().length() == 0) {
+                        if (text.trim().isEmpty()) {
                             rowSorter.setRowFilter(null);
                         } else {
                             rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));

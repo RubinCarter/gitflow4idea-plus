@@ -8,8 +8,8 @@
     <vendor url="https://github.com/RubinCarter">Rubin Carter</vendor>
 
     <depends>com.intellij.modules.vcs</depends>
-    <depends>com.intellij.tasks</depends>
     <depends>Git4Idea</depends>
+    <depends optional="true" config-file="gitflow-tasks.xml">com.intellij.tasks</depends>
 
 <!--    <idea-version since-build="SET_BY_GRADLE" until-build="SET_BY_GRADLE"/>-->
     <idea-version since-build="SET_BY_GRADLE"/>
@@ -104,7 +104,6 @@
         <applicationService serviceInterface="gitflow.Gitflow" serviceImplementation="gitflow.GitflowImpl"/>
         <applicationService serviceImplementation="gitflow.GitflowState"/>
         <projectConfigurable instance="gitflow.GitflowConfigurable"/>
-        <tasks.dialogPanelProvider implementation="gitflow.ui.GitflowTaskDialogPanelProvider"/>
         <statusBarWidgetFactory id="gitflowWidget" implementation="gitflow.ui.GitflowStatusBarWidgetFactory" order="after inspectionProfileWidget"/>
         <notificationGroup  id="Gitflow Errors WINDOW" displayType="TOOL_WINDOW" toolWindowId="Version Control" isLogByDefault="true"/>
         <notificationGroup  id="Gitflow Errors STICKY" displayType="STICKY_BALLOON" isLogByDefault="true"/>

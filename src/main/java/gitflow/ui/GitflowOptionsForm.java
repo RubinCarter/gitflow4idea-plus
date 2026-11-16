@@ -26,7 +26,7 @@ public class GitflowOptionsForm  implements ItemListener {
     Map<Enum<GitflowOptionsFactory.TYPE>, ArrayList<Map<String,String>>> gitflowOptions;
     Map<String, OptionComponent> optionComponents;
 
-    private class OptionComponent{
+    private static class OptionComponent{
         public JComponent checkbox;
         public JComponent textfield;
 
@@ -36,16 +36,17 @@ public class GitflowOptionsForm  implements ItemListener {
         }
     }
 
+    @SuppressWarnings("this-escape")
     public GitflowOptionsForm(){
         gitflowOptions = GitflowOptionsFactory.getOptions();
 
-        optionComponents = new HashMap<String,OptionComponent>();
+        optionComponents = new HashMap<>();
         featurePanel.setLayout(new BoxLayout(featurePanel, BoxLayout.Y_AXIS));
         hotfixPanel.setLayout(new BoxLayout(hotfixPanel, BoxLayout.Y_AXIS));
         releasePanel.setLayout(new BoxLayout(releasePanel, BoxLayout.Y_AXIS));
         bugfixPanel.setLayout(new BoxLayout(bugfixPanel, BoxLayout.Y_AXIS));
 
-        HashMap<GitflowOptionsFactory.TYPE, JPanel> branchTypeToPanel = new HashMap<GitflowOptionsFactory.TYPE, JPanel>();
+        HashMap<GitflowOptionsFactory.TYPE, JPanel> branchTypeToPanel = new HashMap<>();
 
         branchTypeToPanel.put(GitflowOptionsFactory.TYPE.FEATURE, featurePanel);
         branchTypeToPanel.put(GitflowOptionsFactory.TYPE.RELEASE, releasePanel);
@@ -110,7 +111,7 @@ public class GitflowOptionsForm  implements ItemListener {
 
         //disable\enable the finish release tag commit message according to the checkbox state
 
-        if (customTagCommitMessageCheckbox.isSelected() && dontTagRelease.isSelected()==false) {
+        if (customTagCommitMessageCheckbox.isSelected() && !dontTagRelease.isSelected()) {
             customTagCommitMessageTexfield.setEditable(true);
             customTagCommitMessageTexfield.setEnabled(true);
         }

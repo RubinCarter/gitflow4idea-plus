@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import git4idea.remote.GitRememberedInputs;
 import git4idea.repo.GitRepository;
 import gitflow.GitflowBranchUtil;
 import gitflow.GitflowBranchUtilManager;
@@ -26,15 +25,15 @@ public abstract class AbstractBranchStartDialog extends DialogWrapper {
     private JLabel spacesLabel;
     private JLabel branchFromTitle;
 
-    private Project project;
+    private final Project project;
     protected GitRepository myRepo;
-    private GitflowBranchUtil gitflowBranchUtil;
 
+    @SuppressWarnings("this-escape") //standard DialogWrapper init() pattern
     public AbstractBranchStartDialog(Project project, GitRepository repo) {
         super(project, false);
         this.project = project;
         this.myRepo = repo;
-        this.gitflowBranchUtil = GitflowBranchUtilManager.getBranchUtil(repo);
+        GitflowBranchUtil gitflowBranchUtil = GitflowBranchUtilManager.getBranchUtil(repo);
 
         init();
         final String label = getLabel();
@@ -57,23 +56,12 @@ public abstract class AbstractBranchStartDialog extends DialogWrapper {
             }
 
             public void validateBranchName() {
-                if (branchNameTextField.getText().contains(" ")){
-                    spacesLabel.setVisible(true);
-                }
-                else{
-                    spacesLabel.setVisible(false);
-                }
-
-                if (branchNameTextField.getText().contains("&")){
-                    AbstractBranchStartDialog.super.setOKActionEnabled(false);
-                }
-                else{
-                    AbstractBranchStartDialog.super.setOKActionEnabled(true);
-                }
+                spacesLabel.setVisible(branchNameTextField.getText().contains(" "));
+                AbstractBranchStartDialog.super.setOKActionEnabled(!branchNameTextField.getText().contains("&"));
             }
         });
 
-        if (showBranchFromCombo() == false){
+        if (!showBranchFromCombo()){
             branchFromTitle.setVisible(false);
             branchFromCombo.setVisible(false);
         }
@@ -92,7 +80,7 @@ public abstract class AbstractBranchStartDialog extends DialogWrapper {
      * @return The name of the new branch as specified by the user
      */
     public String getNewBranchName() {
-        return branchNameTextField.getText().trim().replaceAll(" ", "_");
+        return branchNameTextField.getText().trim().replace(" ", "_");
     }
 
     /**
@@ -101,7 +89,7 @@ public abstract class AbstractBranchStartDialog extends DialogWrapper {
      */
     public String getBaseBranchName() {
         GitflowBranchUtil.ComboEntry selectedBranch = (GitflowBranchUtil.ComboEntry) branchFromCombo.getModel().getSelectedItem();
-        return selectedBranch.getBranchName();
+        return selectedBranch == null ? null : selectedBranch.getBranchName();
     }
 
     /**
@@ -122,7 +110,7 @@ public abstract class AbstractBranchStartDialog extends DialogWrapper {
 
     @Override
     protected ValidationInfo doValidate() {
-        boolean isBranchNameSpecified = branchNameTextField.getText().trim().length() > 0;
+        boolean isBranchNameSpecified = !branchNameTextField.getText().trim().isEmpty();
         if (!isBranchNameSpecified) {
             return new ValidationInfo("No name specified", branchNameTextField);
         } else {

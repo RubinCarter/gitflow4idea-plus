@@ -5,6 +5,7 @@ import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.process.ProcessAdapter;
 import com.intellij.execution.process.ProcessEvent;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.registry.Registry;
@@ -19,10 +20,13 @@ import org.jetbrains.annotations.Nullable;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Serial;
 import java.util.Locale;
 
 
 public class GitInitLineHandler extends GitLineHandler {
+    private static final Logger LOG = Logger.getInstance(GitInitLineHandler.class);
+
     private final GitVcsConsoleWriter consoleWriter;
 
     private BufferedWriter writer;
@@ -116,7 +120,7 @@ public class GitInitLineHandler extends GitLineHandler {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
     }
 
@@ -137,7 +141,9 @@ public class GitInitLineHandler extends GitLineHandler {
     @Override
     protected Process startProcess() throws ExecutionException {
         Process p = super.startProcess();
-        writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+        if (p != null) {
+            writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+        }
         return p;
     }
 
@@ -147,6 +153,9 @@ public class GitInitLineHandler extends GitLineHandler {
     }
 
     static class MyOSProcessHandler extends GitTextHandler.MyOSProcessHandler {
+        @Serial
+        private static final long serialVersionUID = 1L;
+
         MyOSProcessHandler(@NotNull GeneralCommandLine commandLine,
                 boolean withMediator) throws ExecutionException {
             super(commandLine, withMediator);

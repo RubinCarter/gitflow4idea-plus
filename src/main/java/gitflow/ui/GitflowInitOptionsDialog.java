@@ -10,11 +10,11 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Andreas Vogler (Andreas.Vogler@geneon.de)
@@ -33,22 +33,18 @@ public class GitflowInitOptionsDialog extends DialogWrapper {
     private JTextField versionPrefixTextField;
     private JTextField bugfixPrefixTextField;
 
-    private List<String> localBranches;
+    private final List<String> localBranches;
 
+    @SuppressWarnings("this-escape") //standard DialogWrapper init() pattern
     public GitflowInitOptionsDialog(Project project, List<String> _localBranches) {
         super(project);
         localBranches = _localBranches;
 
-        setTitle("Options for gitflow init");
+        setTitle("Options for Gitflow Init");
         setLocalBranchesComboBox(false);
 
         init();
-        useNonDefaultConfigurationCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                enableFields(e.getStateChange()==ItemEvent.SELECTED);
-            }
-        });
+        useNonDefaultConfigurationCheckBox.addItemListener(e -> enableFields(e.getStateChange()==ItemEvent.SELECTED));
     }
 
     /**
@@ -60,7 +56,7 @@ public class GitflowInitOptionsDialog extends DialogWrapper {
         if (localBranches.contains("master")) return "master";
         if (localBranches.contains("production")) return "production";
         if (localBranches.contains("trunk")) return "trunk";
-        if (!localBranches.isEmpty()) return localBranches.get(0);
+        if (!localBranches.isEmpty()) return localBranches.getFirst();
         return "main";
     }
 
@@ -161,7 +157,7 @@ public class GitflowInitOptionsDialog extends DialogWrapper {
         String message = "Please fill all branch names and prefixes";
 
         if(useNonDefaultConfiguration()) {
-            if(productionBranchComboBox.getSelectedItem().equals(developmentBranchComboBox.getSelectedItem())) {
+            if(Objects.equals(productionBranchComboBox.getSelectedItem(), developmentBranchComboBox.getSelectedItem())) {
                 return new ValidationInfo("Production and development branch must be distinct branches", developmentBranchComboBox);
             }
             if (StringUtil.isEmptyOrSpaces(featurePrefixTextField.getText())) {

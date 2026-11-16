@@ -27,7 +27,7 @@ public class GitflowOptionsFactory {
         addOption(TYPE.FEATURE, "Keep branch after performing finish", "keepBranch" , "-k");
         addOption(TYPE.FEATURE, "Do not fast-forward when merging, always create commit", "noFastForward" , "--no-ff");
         addOption(TYPE.FEATURE, "Push on finish feature", "pushOnFinish" , "--push");
-//        addOption(TYPE.FEATURE, "Squash feature during merge", "squash" , "-S");
+        addOption(TYPE.FEATURE, "Squash feature during merge", "squash" , "-S");
 
         addBranchType(TYPE.RELEASE);
         addOption(TYPE.RELEASE, "Fetch from Origin", "fetchFromOrigin" , "-F");
@@ -52,7 +52,7 @@ public class GitflowOptionsFactory {
         addOption(TYPE.BUGFIX, "Keep Remote", "keepRemote", "--keepremote");
         addOption(TYPE.BUGFIX, "Keep branch after performing finish", "keepBranch" , "-k");
         addOption(TYPE.BUGFIX, "Do not fast-forward when merging, always create commit", "noFastForward" , "--no-ff");
-//        addOption(TYPE.BUGFIX, "Squash feature during merge", "squash" , "-S");
+        addOption(TYPE.BUGFIX, "Squash bugfix during merge", "squash" , "-S");
     }
 
     private void addBranchType(Enum<TYPE> branchType){

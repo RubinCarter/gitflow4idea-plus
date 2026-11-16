@@ -19,6 +19,15 @@ import java.util.HashMap;
 
 public class GitflowImpl extends GitImpl implements Gitflow {
 
+    //the plugin parses git-flow/git output for known English substrings (e.g. "There were
+    //merge conflicts", "CONFLICT (") to detect errors; force a C locale so that parsing
+    //stays reliable regardless of the user's OS/system language
+    @Override
+    public GitCommandResult runCommand(GitLineHandler h) {
+        h.addCustomEnvironmentVariable("LC_ALL", "C");
+        return super.runCommand(h);
+    }
+
     //we must use reflection to add this command, since the git4idea implementation doesn't expose it
     private GitCommand GitflowCommand() {
         Method m = null;
@@ -48,6 +57,16 @@ public class GitflowImpl extends GitImpl implements Gitflow {
         HashMap<String,String> optionMap = GitflowOptionsFactory.getOptionById(optionId);
         if (GitflowConfigurable.isOptionActive(project, optionMap.get("id"))){
             h.addParameters(optionMap.get("flag"));
+        }
+    }
+
+    //when squashing, git-flow's finish script runs a plain "git commit" with no message
+    //(see git-flow-feature/git-flow-bugfix "git_do commit"), which would otherwise block
+    //forever waiting for an interactive editor since we run git headlessly here
+    private void disableEditorIfSquashing(GitLineHandler h, Project project, String optionId){
+        HashMap<String,String> optionMap = GitflowOptionsFactory.getOptionById(optionId);
+        if (GitflowConfigurable.isOptionActive(project, optionMap.get("id"))){
+            h.addCustomEnvironmentVariable("GIT_EDITOR", ":");
         }
     }
 
@@ -139,7 +158,8 @@ public class GitflowImpl extends GitImpl implements Gitflow {
         addOptionsCommand(h, repository.getProject(),"FEATURE_fetchFromOrigin");
         addOptionsCommand(h, repository.getProject(),"FEATURE_pushOnFinish");
         addOptionsCommand(h, repository.getProject(),"FEATURE_noFastForward");
-//        addOptionsCommand(h, repository.getProject(),"FEATURE_squash");
+        addOptionsCommand(h, repository.getProject(),"FEATURE_squash");
+        disableEditorIfSquashing(h, repository.getProject(),"FEATURE_squash");
 
         h.addParameters(featureName);
 
@@ -426,7 +446,8 @@ public class GitflowImpl extends GitImpl implements Gitflow {
         addOptionsCommand(h, repository.getProject(),"BUGFIX_keepLocal");
         addOptionsCommand(h, repository.getProject(),"BUGFIX_keepBranch");
         addOptionsCommand(h, repository.getProject(),"BUGFIX_fetchFromOrigin");
-//        addOptionsCommand(h, repository.getProject(),"BUGFIX_squash");
+        addOptionsCommand(h, repository.getProject(),"BUGFIX_squash");
+        disableEditorIfSquashing(h, repository.getProject(),"BUGFIX_squash");
 
         h.addParameters(bugfixName);
 

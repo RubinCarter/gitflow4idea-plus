@@ -1,42 +1,89 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.14.2"
+    id("org.jetbrains.intellij.platform") version "2.10.0"
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 group = "gitflow4idea-plus"
-version = "0.8.1-beta.2"
+version = "0.8.1-beta.9"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 dependencies {
     testImplementation("junit:junit:4.13.2")
+
+    intellijPlatform {
+        intellijIdeaCommunity("2024.2")
+        bundledPlugin("Git4Idea")
+        bundledPlugin("com.intellij.tasks")
+    }
 }
 
-intellij {
-    version.set("2023.1")
-    plugins.set(listOf("Git4Idea", "tasks"))
-    updateSinceUntilBuild.set(false)
-}
-
-tasks {
-    patchPluginXml {
-        pluginId.set("Gitflow-Fix")
-        pluginDescription.set("""
+intellijPlatform {
+    pluginConfiguration {
+        id = "Gitflow-Fix"
+        name = "Git Flow Integration Plus"
+        description = """
             <H2>Git Flow Integration for Intellij</H2>
             An intelliJ plugin providing a UI layer for git-flow, which in itself is a collection of Git extensions to provide high-level repository operations for Vincent <a href="https://nvie.com/posts/a-successful-git-branching-model/">Driessen's branching model</a>
-        """)
-        version.set("${project.version}")
-        sinceBuild.set("231.8109.175")
-        changeNotes.set("""
-            <H2>Changelog for 0.8.1-beta.2</H2>
+        """
+        version = "${project.version}"
+        ideaVersion {
+            sinceBuild = "242"
+        }
+        changeNotes = """
+            <H2>Changelog for 0.8.1-beta.9</H2>
+            <ul>
+              <li>Fix RepoActions.getChildren() nullability annotation to match the platform's type-use @NotNull on the array return type</li>
+              <li>Bump Gradle wrapper to 8.14.5</li>
+            </ul>
+
+            <H2>Changelog for 0.8.1-beta.8</H2>
+            <ul>
+              <li>Fix "Re-Initialize Gitflow Repository..." action ignoring its display name (constructor parameter bug)</li>
+              <li>Fix potential NullPointerException in task dialog panel provider when no branch info is available yet</li>
+              <li>Fix potential NullPointerException in the base/production branch combo boxes on init and start dialogs</li>
+              <li>Fix potential NullPointerException in startProcess() if the underlying git process fails to start</li>
+              <li>Remove more dead code (GitflowComponent, unused imports/methods) and modernize (lambdas, diamond operators, text blocks, enhanced for-loops)</li>
+              <li>Replace printStackTrace() with proper platform logging</li>
+            </ul>
+
+            <H2>Changelog for 0.8.1-beta.7</H2>
+            <ul>
+              <li>Remove dead code: unused UnsupportedVersionWidgetPresentation class and isCurrentBranchMaster() method</li>
+              <li>Fix potential NullPointerException when starting a feature/hotfix/bugfix from the task dialog with no base branch selected</li>
+              <li>General code cleanup (unused imports/fields, redundant boolean checks, diamond operators, enhanced for-loops)</li>
+            </ul>
+
+            <H2>Changelog for 0.8.1-beta.6</H2>
+            <ul>
+              <li>Require IntelliJ 2024.2+ (bundled JetBrains Runtime 21) and build against Java 21</li>
+              <li>Fix "Gitflow Operations Popup..." action doing nothing (was calling a deprecated API that always returned null)</li>
+              <li>Clean up all compiler warnings (deprecated API usage, missing serialVersionUID, raw types)</li>
+            </ul>
+
+            <H2>Changelog for 0.8.1-beta.5</H2>
+            <ul>
+              <li>Fix false-positive "merge conflict" detection (and the resulting IDE freeze/infinite retry) when a squash finish fails for a non-conflict reason</li>
+              <li>Force English git output for all Gitflow commands (LC_ALL=C) so error/conflict detection works correctly on non-English system locales</li>
+            </ul>
+
+            <H2>Changelog for 0.8.1-beta.4</H2>
+            <ul>
+              <li>Fix "Requires plugin com.intellij.tasks" preventing install/load on newer IDEA versions (Task Management dependency is now optional)</li>
+              <li>Fix IDE freezing when finishing a feature/bugfix with "Squash during merge" enabled (git-flow's internal commit no longer waits on an interactive editor)</li>
+            </ul>
+
+            <H2>Changelog for 0.8.1-beta.3</H2>
             <ul>
               <li>Support git-flow-next implementation #45</li>
               <li>Support gitflow-cjs implementation #34</li>
@@ -45,6 +92,7 @@ tasks {
               <li>Smart branch detection for init dialog (prioritize main over master)</li>
               <li>Improve init prompt matching for different git-flow implementations</li>
               <li>Improve unsupported version error message with installation guidance</li>
+              <li>Add "Squash during merge" (-S) option for finishing features and bugfixes</li>
             </ul>
 
             <H2>Changelog for 0.7.13</H2>
@@ -146,6 +194,6 @@ tasks {
             </ul>
         
             <p>Note - if you see 'no gitflow' in the status bar you will need to re-init using <code>git flow init -f</code></p>
-        """)
+        """
     }
 }

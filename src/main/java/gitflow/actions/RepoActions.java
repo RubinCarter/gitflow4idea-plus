@@ -13,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 class RepoActions extends BranchActionGroup implements PopupElementWithAdditionalInfo, FileEditorManagerListener {
     Project myProject;
@@ -30,7 +29,7 @@ class RepoActions extends BranchActionGroup implements PopupElementWithAdditiona
     }
 
     public ArrayList<AnAction> getRepoActions(boolean includeAdvanced){
-        ArrayList<AnAction> actionList = new ArrayList<AnAction>();
+        ArrayList<AnAction> actionList = new ArrayList<>();
 
         actionList.add(new InitRepoAction(myRepo));
 
@@ -65,9 +64,8 @@ class RepoActions extends BranchActionGroup implements PopupElementWithAdditiona
             actionList.add(new Separator("Advanced"));
 
             actionList.add(new ActionGroup("Advanced", true) {
-                @NotNull
                 @Override
-                public AnAction[] getChildren(@Nullable AnActionEvent anActionEvent) {
+                public AnAction @NotNull [] getChildren(@Nullable AnActionEvent anActionEvent) {
                     AnAction initRepoAction = new ReInitRepoAction(myRepo);
                     return new AnAction[] { initRepoAction };
                 }
@@ -87,11 +85,10 @@ class RepoActions extends BranchActionGroup implements PopupElementWithAdditiona
         return actionGroup;
     }
 
-    @NotNull
     @Override
-    public AnAction[] getChildren(@Nullable AnActionEvent e) {
+    public AnAction @NotNull [] getChildren(@Nullable AnActionEvent e) {
         ArrayList<AnAction> children = this.getRepoActions(false);
-        return children.toArray(new AnAction[children.size()]);
+        return children.toArray(new AnAction[0]);
     }
 
     @Override
@@ -100,6 +97,7 @@ class RepoActions extends BranchActionGroup implements PopupElementWithAdditiona
         return "what's this";
     }
 
+    @SuppressWarnings("deprecation")
     public void updateFavoriteIcon(){
         SwingUtilities.invokeLater(() -> {
             boolean isFavorite = GitBranchUtil.getCurrentRepository(myProject) == myRepo;

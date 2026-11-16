@@ -22,7 +22,7 @@ public class InitRepoAction extends GitflowAction {
     }
 
     InitRepoAction(String actionName) {
-        this(null, "Init Repo");
+        this(null, actionName);
     }
 
     InitRepoAction(GitRepository repo) {
@@ -38,11 +38,7 @@ public class InitRepoAction extends GitflowAction {
         GitflowBranchUtil branchUtil = GitflowBranchUtilManager.getBranchUtil(myRepo);
         if (branchUtil != null) {
             // Only show when gitflow isn't setup
-            if (branchUtil.hasGitflow()) {
-                e.getPresentation().setEnabledAndVisible(false);
-            } else {
-                e.getPresentation().setEnabledAndVisible(true);
-            }
+            e.getPresentation().setEnabledAndVisible(!branchUtil.hasGitflow());
         }
     }
 
@@ -82,9 +78,8 @@ public class InitRepoAction extends GitflowAction {
                         NotifyUtil.notifySuccess(myProject, "", successMessage);
 
                         // Update the widget AFTER config is reloaded
-                        ApplicationManager.getApplication().invokeLater(() -> {
-                            myProject.getMessageBus().syncPublisher(GitRepository.GIT_REPO_CHANGE).repositoryChanged(myRepo);
-                        });
+                        ApplicationManager.getApplication().invokeLater(() ->
+                                myProject.getMessageBus().syncPublisher(GitRepository.GIT_REPO_CHANGE).repositoryChanged(myRepo));
                     } else {
                         NotifyUtil.notifyError(myProject, "Error", result.getErrorOutputAsJoinedString() + "Please have a look at the Version Control console for more details");
                     }
@@ -105,7 +100,7 @@ public class InitRepoAction extends GitflowAction {
     }
 
     protected String getTitle() {
-        return "Initializing Repo";
+        return "Initializing repo";
     }
 
     protected GitflowLineHandler getLineHandler() {
@@ -113,7 +108,7 @@ public class InitRepoAction extends GitflowAction {
     }
 
 
-    private class LineHandler extends GitflowLineHandler {
+    private static class LineHandler extends GitflowLineHandler {
         @Override
         public void onLineAvailable(String line, Key outputType) {
             if (line.contains("Already initialized for gitflow")){

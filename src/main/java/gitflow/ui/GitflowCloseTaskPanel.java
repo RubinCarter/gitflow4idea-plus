@@ -77,7 +77,7 @@ public class GitflowCloseTaskPanel extends TaskDialogPanel {
     @NotNull
     @Override
     public JComponent getPanel() {
-        String taskBranchName = gitflowState.getTaskBranch(myTask);
+        String taskBranchName = gitflowState.getTaskBranch(myTask.getId());
         if (taskBranchName != null) {
             myPanel.setVisible(true);
             if (gitflowBranchUtil.isBranchFeature(taskBranchName)) {
@@ -103,7 +103,7 @@ public class GitflowCloseTaskPanel extends TaskDialogPanel {
 
     @Override
     public void commit() {
-        String taskFullBranchName = gitflowState.getTaskBranch(myTask);
+        String taskFullBranchName = gitflowState.getTaskBranch(myTask.getId());
 
         // test if current task is a gitflow task
         if (taskFullBranchName != null) {

@@ -36,6 +36,55 @@ Installation document:https://www.jetbrains.com/help/idea/managing-plugins.html#
 
 **The plugin requires that you have gitflow installed, specifically the [AVH edition](https://github.com/petervanderdoes/gitflow). This is because the [Vanilla Git Flow](https://github.com/nvie/gitflow) hasn't been maintained in years.** See this page [for details](https://github.com/RubinCarter/gitflow4idea-fix/blob/develop/GITFLOW_VERSION.md)
 
+## Options
+
+Each `start`/`finish` action can be customized per branch type (Feature, Release, Hotfix, Bugfix) in **Settings/Preferences → Tools → Gitflow**. Every checkbox maps directly to the matching `git flow` CLI flag, so hovering over an unfamiliar one in the [AVH gitflow docs](https://github.com/petervanderdoes/gitflow/wiki) will explain its exact behavior.
+
+### Feature
+
+| Option | Flag |
+|---|---|
+| Fetch from Origin | `-F` |
+| Keep Local | `--keeplocal` |
+| Keep Remote | `--keepremote` |
+| Keep branch after performing finish | `-k` |
+| Do not fast-forward when merging, always create commit | `--no-ff` |
+| Push on finish feature | `--push` |
+| Squash feature during merge | `-S` |
+
+### Release
+
+| Option | Flag |
+|---|---|
+| Fetch from Origin | `-F` |
+| Push on finish release | `-p` |
+| Keep Local | `--keeplocal` |
+| Keep Remote | `--keepremote` |
+| Keep branch after performing finish | `-k` |
+| Don't tag release | `-n` |
+| Use custom tag commit message | — (free text) |
+
+### Hotfix
+
+| Option | Flag |
+|---|---|
+| Fetch from Origin | `-F` |
+| Keep branch after performing finish | `-k` |
+| Push on finish Hotfix | `-p` |
+| Don't tag Hotfix | `-n` |
+| Use custom hotfix commit message | — (free text) |
+
+### Bugfix
+
+| Option | Flag |
+|---|---|
+| Fetch from Origin | `-F` |
+| Keep Local | `--keeplocal` |
+| Keep Remote | `--keepremote` |
+| Keep branch after performing finish | `-k` |
+| Do not fast-forward when merging, always create commit | `--no-ff` |
+| Squash bugfix during merge | `-S` |
+
 ## Caveats
 
 While the plugin is operational and contains all basic functions (init/feature/release/hotfix), it may contains bugs. With your help I'll be able to find and zap them all.
